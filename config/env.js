@@ -14,3 +14,7 @@ module.exports = {
     .toLowerCase(),
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || "admin123",
 };
+
+console.log("=== ENV DEBUG ===");
+console.log("MONGODB_URI:", process.env.MONGODB_URI);
+console.log("DB NAME:", process.env.MONGODB_DB_NAME);

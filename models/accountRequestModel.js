@@ -1,4 +1,4 @@
-const { getCollections } = require("../config/db");
+const { getCollections } = require("../../backend_fix/config/db");
 
 const createAccountRequest = (payload) => {
   const { accountRequestsCollection } = getCollections();
