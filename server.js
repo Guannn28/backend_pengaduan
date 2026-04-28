@@ -1,6 +1,12 @@
 const express = require("express");
 const { initDb } = require("./config/db");
 const authRoutes = require("./routes/auth");
+const cors = require("cors");
+
+app.use(cors({
+  origin: "https://pengaduan-pulz.vercel.app",
+  credentials: true
+}));
 
 app.use("/api", authRoutes);
 
