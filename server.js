@@ -10,8 +10,16 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-initDb().then(() => {
+(async () => {
+  try {
+    await initDb();
+    console.log("DB connected");
+  } catch (err) {
+    console.error("DB gagal:", err.message);
+    // tetap lanjut supaya server hidup
+  }
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
-});
+})();
