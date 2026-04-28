@@ -1,14 +1,17 @@
-const app = require("./app");
-const env = require("./config/env");
+const express = require("express");
 const { initDb } = require("./config/db");
 
-initDb()
-  .then(() => {
-    app.listen(env.PORT, () => {
-      console.log(`Server berjalan di http://localhost:${env.PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Gagal inisialisasi database", err);
-    process.exit(1);
+const app = express();
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Server hidup 🚀");
+});
+
+const PORT = process.env.PORT || 3000;
+
+initDb().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
   });
+});
