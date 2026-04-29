@@ -2,17 +2,26 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const env = require("../backend_fix/config/env");
-const { distPath, uploadsPath } = require("./config/paths");
+const env = require("./config/env");
+const { distPath, uploadsPath } = require("./paths");
 const authRoutes = require("./routes/authRoutes");
 const complaintRoutes = require("./routes/complaintRoutes");
 const { errorHandler } = require("./middleware/errorHandler");
 
 const app = express();
+const allowedOrigins = new Set(env.CLIENT_ORIGINS);
 
 app.use(
   cors({
-    origin: env.CLIENT_ORIGIN,
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.has(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`Origin ${origin} tidak diizinkan oleh CORS.`));
+    },
+    credentials: true,
   })
 );
 app.use(express.json());

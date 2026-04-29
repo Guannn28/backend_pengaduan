@@ -1,34 +1,16 @@
-const express = require("express");
-const cors = require("cors");
+const app = require("./app");
 const { initDb } = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
+const env = require("./config/env");
 
-const app = express(); // ✅ HARUS DI ATAS
-
-// middleware
-app.use(cors({
-  origin: "https://pengaduan-pulz.vercel.app",
-  credentials: true
-}));
-
-app.use(express.json());
-
-// routes
-app.use("/api", authRoutes);
-
-// test route
-app.get("/", (req, res) => {
-  res.send("Server hidup 🚀");
-});
-
-const PORT = process.env.PORT || 3000;
+const PORT = env.PORT;
 
 (async () => {
   try {
     await initDb();
-    console.log("DB connected");
+    console.log(`MongoDB connected (${env.MONGODB_DB_NAME})`);
   } catch (err) {
     console.error("DB error:", err.message);
+    process.exit(1);
   }
 
   app.listen(PORT, () => {

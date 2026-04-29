@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { complaintCategories, complaintStatuses } = require("../config/constants");
+const { complaintCategories, complaintStatuses } = require("../constants");
 const {
   aggregateComplaintCounts,
   createComplaint,

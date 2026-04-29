@@ -1,5 +1,5 @@
-const env = require("../../backend_fix/config/env");
-const { getCollections } = require("../../backend_fix/config/db");
+const env = require("../config/env");
+const { getCollections } = require("../config/db");
 const { generateSalt, hashPassword } = require("../utils/security");
 
 const findUserByEmail = (email) => {
